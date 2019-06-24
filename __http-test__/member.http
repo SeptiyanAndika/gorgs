@@ -1,0 +1,22 @@
+
+### before you start and if you using visual studio code please install
+### https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+### Endpoint For check status servics up, 
+### ENDPOINT : /members/health
+### sample request
+GET http://localhost:8000/members/health
+Content-Type: application/json
+
+
+### Endpoint For Get member from github organisation order by follower desc
+### ENDPOINT : /members/{orgs}
+### params page and per_page, default 1 and 10
+### sample request 1
+GET http://localhost:8000/members/expressjs
+Content-Type: application/json
+
+### sample request 2
+GET http://localhost:8000/members/expressjs?page=2&per_page=15
+Content-Type: application/json
+

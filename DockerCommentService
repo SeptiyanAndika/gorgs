@@ -1,0 +1,12 @@
+FROM golang:1.12-stretch
+
+RUN mkdir -p /workspace
+WORKDIR /workspace
+
+COPY comment/go.mod go.mod
+COPY comment/go.sum go.sum
+
+ADD comment/ /workspace
+
+CMD go mod vendor
+CMD go run main.go

@@ -1,0 +1,52 @@
+
+### before you start and if you using visual studio code please install
+### https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+### Endpoint For check status servics up, 
+### ENDPOINT : /comments/health
+### sample request
+GET http://localhost:8000/comments/health
+Content-Type: application/json
+
+
+
+### Endpoint For Create new  comments organisation 
+### ENDPOINT : /comments/{orgs}
+### sample request
+POST http://localhost:8000/comments/echo
+Content-Type: application/json
+
+{
+  "comment": "qazwsx123"
+}
+
+
+### Endpoint For Get All comments organisation
+### ENDPOINT : /comments/{orgs}
+### sample request
+GET http://localhost:8000/comments/echo
+Content-Type: application/json
+
+### Endpoint For Get One comments organisation
+### ENDPOINT : /comments/{orgs}/{id}
+### sample request
+GET http://localhost:8000/comments/echo/1
+Content-Type: application/json
+
+
+### Endpoint For Update  comments organisation 
+### ENDPOINT : /comments/{orgs}/{id}
+### sample request
+PUT http://localhost:8000/comments/echo/1
+Content-Type: application/json
+
+{
+  "comment": "abc"
+}
+
+### Endpoint For Delete comments organisation
+### ENDPOINT : /comments/{orgs}
+### sample request
+DELETE  http://localhost:8000/comments/echo/1
+Content-Type: application/json
+

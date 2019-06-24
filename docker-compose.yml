@@ -1,0 +1,71 @@
+version: '3'
+networks:
+  shared-network:
+    driver: bridge
+
+services:
+  db:
+    image: postgres:11
+    container_name: gorgs_db
+    environment:
+      POSTGRES_DB: gorgs
+      POSTGRES_USER: gorgs
+      POSTGRES_PASSWORD: s3cr3tp4ssw0rd
+    ports:
+      - 5432:5432 #posgres port
+    networks:
+      - shared-network
+
+  kong:
+    build:
+      context: . 
+      dockerfile: DockerfileKong
+    container_name: gorgs_kong
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: kong.yml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://kong:8000"]
+      interval: 5s
+      timeout: 2s
+      retries: 15
+    depends_on:
+      - "nginx"
+      - "member"
+      - "comment"
+    ports:
+      - "8000:8000" #kong proxy listen
+      - "8443:8443" #kong proxy listen ssl
+      - "8001:8001" #kong admin listen
+    networks:
+      - shared-network
+
+  member:
+    build:
+      context: . 
+      dockerfile: DockerfileMemberService
+    container_name: gorgs_member
+    networks:
+      - shared-network
+  
+  comment:
+    build:
+      context: . 
+      dockerfile: DockerCommentService
+    container_name: gorgs_comment
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: gorgs
+      DB_USER: gorgs
+      DB_PASS: s3cr3tp4ssw0rd
+    depends_on:
+      - db
+    networks:
+      - shared-network
+
+  nginx:
+    image: nginxdemos/hello:latest
+    container_name: gorgs_nginx_hello
+    networks:
+      - shared-network
