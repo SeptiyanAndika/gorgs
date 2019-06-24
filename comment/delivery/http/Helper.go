@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// helper object for generic response
 type ResponseObject struct {
 	Success bool        `json:"success"`
 	Message string      `json:"message,omitempty"`

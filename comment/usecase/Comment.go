@@ -7,6 +7,7 @@ import (
 	"gorgs/comment/repository/sql"
 )
 
+// interface Comment for abstractions use case or logic function
 type CommentUseCaseInterface interface {
 	Create(orgName string, request model.CommentRequest) (model.Comment, error)
 	GetByOrgName(orgName string) ([]model.Comment, error)
@@ -22,10 +23,12 @@ func NewCommentUseCase(_repo sql.CommentRepoInterface) CommentUseCaseInterface {
 	return &commentUseCase{repo: _repo}
 }
 func (c *commentUseCase) Create(orgName string, request model.CommentRequest) (model.Comment, error) {
+	//validation required field or not
 	_, err := validator.ValidateStruct(request)
 	if err != nil {
 		return model.Comment{}, err
 	}
+
 	input := model.Comment{
 		OrgName: orgName,
 		Comment: request.Comment,
@@ -42,6 +45,7 @@ func (c *commentUseCase) GetOneByOrgNameAndId(orgName string, ID uint) (model.Co
 }
 
 func (c *commentUseCase) Update(orgName string, ID uint, request model.CommentRequest) (model.Comment, error) {
+	//validation required field or not
 	_, err := validator.ValidateStruct(request)
 	if err != nil {
 		return model.Comment{}, err

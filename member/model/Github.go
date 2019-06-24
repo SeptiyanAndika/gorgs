@@ -31,7 +31,6 @@ type GithubUser struct {
 }
 
 // UserByFollowers implements sort.Interface based on the Followers field.
-
 type GithubUserByFollowers []GithubUser
 
 func (u GithubUserByFollowers) Len() int           { return len(u) }

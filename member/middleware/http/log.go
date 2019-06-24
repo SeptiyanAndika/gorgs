@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// logging routing endpoint , requestid, and response time
 func RoutingLog(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) (err error) {
 		start := time.Now()

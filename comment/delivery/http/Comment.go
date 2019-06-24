@@ -7,12 +7,14 @@ import (
 	"strconv"
 )
 
-type Comment struct {
+
+type comment struct {
 	commUseCase usecase.CommentUseCaseInterface
 }
 
+// create new object delivery comment with routes defined
 func NewComment(e *echo.Echo, _commUseCase usecase.CommentUseCaseInterface) {
-	handler := &Comment{
+	handler := &comment{
 		commUseCase: _commUseCase,
 	}
 	e.GET("/:orgs", handler.GetByOrgName)
@@ -22,11 +24,11 @@ func NewComment(e *echo.Echo, _commUseCase usecase.CommentUseCaseInterface) {
 	e.DELETE("/:orgs/:id", handler.Delete)
 }
 
-func (co *Comment) GetByOrgName(ctx echo.Context) error {
+func (co *comment) GetByOrgName(ctx echo.Context) error {
 	orgs := ctx.Param("orgs")
 
+	// call use case or logic get GetByOrgName
 	results, err := co.commUseCase.GetByOrgName(orgs)
-
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
@@ -34,54 +36,60 @@ func (co *Comment) GetByOrgName(ctx echo.Context) error {
 	return successResponse(ctx, "", results)
 }
 
-func (co *Comment) GetOneByOrgNameAndId(ctx echo.Context) error {
+func (co *comment) GetOneByOrgNameAndId(ctx echo.Context) error {
 	orgs := ctx.Param("orgs")
 
+	// if err convert id to int return error response
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
 
+	// call use case or logic get GetOneByOrgNameAndId
 	results, err := co.commUseCase.GetOneByOrgNameAndId(orgs,uint(id))
-
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
 
 	return successResponse(ctx, "", results)
 }
-func (co *Comment) Create(ctx echo.Context) error {
+func (co *comment) Create(ctx echo.Context) error {
 	orgs := ctx.Param("orgs")
 
+	// binding json request to struct
 	var request model.CommentRequest
 	err := ctx.Bind(&request)
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
+
+	// call use case or logic get Create
 	results, err := co.commUseCase.Create(orgs, request)
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
+
 	return successResponse(ctx, "", results)
 }
 
-func (co *Comment) Update(ctx echo.Context) error {
+func (co *comment) Update(ctx echo.Context) error {
 	orgs := ctx.Param("orgs")
 
+	// if err convert id to int return error response
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
 
+	//binding json request to struct
 	var request model.CommentRequest
 	err = ctx.Bind(&request)
-
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
 
+	// call use case or logic get Update
 	results, err := co.commUseCase.Update(orgs, uint(id), request)
-
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
@@ -89,16 +97,17 @@ func (co *Comment) Update(ctx echo.Context) error {
 	return successResponse(ctx, "", results)
 }
 
-func (co *Comment) Delete(ctx echo.Context) error {
+func (co *comment) Delete(ctx echo.Context) error {
 	orgs := ctx.Param("orgs")
 
+	// if err convert id to int return error response
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}
 
+	// call use case or logic get Delete
 	err = co.commUseCase.Delete(orgs, uint(id))
-
 	if err != nil {
 		return errorResponse(ctx, err, nil)
 	}

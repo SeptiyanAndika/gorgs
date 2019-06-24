@@ -1,6 +1,13 @@
 ## Description
 Simple project used to learn and try clean arch, api gateway, and docker. this project have 2 services using golang run on container, and used kong api gateway for exposed to the public
 
+This project has some domain layer :
+ * Models Layer  : contains entities, dto, like schema table and or schema response object
+ * Repository / Adapter Layer  : contains function to connect databse or another thir party
+ * Usecase Layer  : contains function logic, use case or user stories
+ * Logging Layer  : function for logging usecase , like a paramater, time process and error in usecase
+ * Delivery Layer : function for expose usecase or logic to outside can be via http, grpc, lambda and others.
+
 
 ## Technology used:
 - Golang

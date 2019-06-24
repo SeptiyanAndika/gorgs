@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+// wrapper logging for use case or logic
+
 type githubOrgMembersLog struct {
 	name string
 	u    usecase.GithubOrgMembersUseCaseInterface

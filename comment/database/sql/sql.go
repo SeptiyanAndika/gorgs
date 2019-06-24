@@ -14,6 +14,7 @@ var (
 	once   sync.Once
 )
 
+// initialise db connections
 func Init(dbHost string, dbPort int, dbUser, dbPass, dbName string, debug bool) *gorm.DB {
 	var err error
 	once.Do(func() {
@@ -30,6 +31,7 @@ func Init(dbHost string, dbPort int, dbUser, dbPass, dbName string, debug bool) 
 	return client
 }
 
+// get instance db after initialisation
 func GetInstance() *gorm.DB {
 	if client == nil {
 		fmt.Println("DB is not initialized. Please execute Init first")

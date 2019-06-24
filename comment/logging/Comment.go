@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// wrapper logging for use case or logic comment
+
 type commentLog struct {
 	name string
 	u    usecase.CommentUseCaseInterface

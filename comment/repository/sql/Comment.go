@@ -5,6 +5,7 @@ import (
 	"gorgs/comment/model"
 )
 
+// interface repository for abstractions comment repo function
 type CommentRepoInterface interface {
 	Create(input model.Comment) (model.Comment, error)
 	GetByOrgName(orgName string) ([]model.Comment, error)
