@@ -22,3 +22,19 @@ services:
     paths:
     - /members
 
+plugins:
+- name: rate-limiting
+  service: member
+  config: 
+    second: 5
+    minute: 60
+    hour: 1000
+    policy: local
+
+- name: rate-limiting
+  service: comment
+  config: 
+    second: 5
+    minute: 60
+    hour: 1000
+    policy: local
