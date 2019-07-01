@@ -24,21 +24,24 @@ services:
     environment:
       KONG_DATABASE: "off"
       KONG_DECLARATIVE_CONFIG: kong.yml
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://kong:8000"]
-      interval: 5s
-      timeout: 2s
-      retries: 15
+      KONG_ADMIN_LISTEN: '0.0.0.0:8001'
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://kong:8000"]
+    #   interval: 5s
+    #   timeout: 2s
+    #   retries: 15
     depends_on:
       - "nginx"
       - "member"
       - "comment"
-    ports:
-      - "8000:8000" #kong proxy listen
-      - "8443:8443" #kong proxy listen ssl
-      - "8001:8001" #kong admin listen
     networks:
       - shared-network
+    ports:
+      - "8000:8000/tcp"
+      - "8001:8001/tcp"
+      - "8443:8443/tcp"
+      - "8444:8444/tcp"
+    restart: on-failure
 
   member:
     build:

@@ -31,3 +31,7 @@ services crud comment to organisation name, data save on db postgresql
 
 ## __http-test__
 list and test endpoint for member and comments
+
+## Kong Plugins
+- Rate limiting
+- Prometheus, metrics can be access via http://localhost:8001/metrics

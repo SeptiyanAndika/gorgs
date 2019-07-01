@@ -38,3 +38,9 @@ plugins:
     minute: 60
     hour: 1000
     policy: local
+
+- name: prometheus
+  service: member
+
+- name: prometheus
+  service: comment
